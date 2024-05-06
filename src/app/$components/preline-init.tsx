@@ -26,7 +26,7 @@ export function PrelineInit({children}: ChildrenProps) {
 
     setNonce(1);
 
-    console.info("Preline loaded.");
+    console.debug("Preline loaded.");
   }, [path]);
 
   return children;

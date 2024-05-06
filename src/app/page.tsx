@@ -11,6 +11,7 @@ import {
   useTabs,
 } from "./$components/segment-tabs";
 import { Props } from "@/types";
+import { Label } from "./$components/label";
 
 export default function Home() {
   return (
@@ -44,6 +45,7 @@ function HeroSection() {
         src={kemomimi1}
         alt="Here is a cute kemomimi."
         height={600}
+        priority={true}
       ></Image>
     </div>
   );
@@ -78,23 +80,39 @@ function SecondSection() {
 }
 
 function EducationTab() {
+  const majorCourses = [
+    "Computer Organization And Design",
+    "Operating Systems",
+    "Computer Networks",
+    "Software Engineering",
+    "Abstract Algebra",
+    "...",
+  ];
+
   return (
     <div className="flex gap-24 items-center">
       <div className="flex flex-col basis-2/3">
         <h3 className="text-3xl">Graduated from Wuhan University</h3>
         <div className="text-gray-600">
           <p className="mt-12">{`This person graduated from Wuhan University, China, with a Bachelor's degree in Computer Science and Technology in June 2024.`}</p>
-          <p className="mt-4">{`The major courses include Computer Organization And Design, Operating Systems, Computer Networks, Software Engineering and Abstract Algebra.`}</p>
+          {/* <p className="mt-4">{`The major courses include Computer Organization And Design, Operating Systems, Computer Networks, Software Engineering and Abstract Algebra.`}</p> */}
+          <div className="flex flex-col gap-6 mt-12 p-6 border rounded-xl shadow-lg">
+            <h4 className="text-lg font-semibold font-urbanist">
+              Major Courses
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {majorCourses.map((course) => (
+                <Label key={course}>{course}</Label>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <div className="flex-1 basis-1/3 relative h-[400px]">
         <Image
           src={whu1}
           alt="WHU"
-          objectFit="cover"
-          objectPosition="center"
-          layout="fill"
-          className="rounded-lg"
+          className="rounded-lg h-full object-cover object-center"
         ></Image>
       </div>
     </div>
