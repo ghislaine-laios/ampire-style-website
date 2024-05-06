@@ -12,6 +12,7 @@ import {
 } from "./$components/segment-tabs";
 import { Props } from "@/types";
 import { Label } from "./$components/label";
+import { Timeline } from "./$components/timeline";
 
 export default function Home() {
   return (
@@ -58,7 +59,11 @@ function SecondSection() {
       content: <EducationTab></EducationTab>,
       tabId: "educated-tab",
     },
-    { title: "Experience", content: <div>22</div>, tabId: "experienced-tab" },
+    {
+      title: "Experience",
+      content: <ExperienceTab></ExperienceTab>,
+      tabId: "experienced-tab",
+    },
   ];
 
   const { tabs, tabPanels } = useTabs(tabsData);
@@ -95,7 +100,6 @@ function EducationTab() {
         <h3 className="text-3xl">Graduated from Wuhan University</h3>
         <div className="text-gray-600">
           <p className="mt-12">{`This person graduated from Wuhan University, China, with a Bachelor's degree in Computer Science and Technology in June 2024.`}</p>
-          {/* <p className="mt-4">{`The major courses include Computer Organization And Design, Operating Systems, Computer Networks, Software Engineering and Abstract Algebra.`}</p> */}
           <div className="flex flex-col gap-6 mt-12 p-6 border rounded-xl shadow-lg">
             <h4 className="text-lg font-semibold font-urbanist">
               Major Courses
@@ -117,4 +121,45 @@ function EducationTab() {
       </div>
     </div>
   );
+}
+
+function ExperienceTab() {
+  type TimelineItem = Props<typeof Timeline>["items"][0];
+  const timelineData: (Omit<
+    TimelineItem,
+    "timeLabel" | "heading" | "content"
+  > & {
+    content: { heading: string; subTitle: string; corp: string };
+  })[] = [
+    {
+      time: "2023.03 - 2024.03",
+      content: {
+        heading: "Backend Engineer",
+        subTitle: "Write the backend using Rust and Golang.",
+        corp: "Wuhan Kesong Technology Co., Ltd.",
+      },
+    },
+    {
+      time: "2021.09 - 2021.12",
+      content: {
+        heading: "Frontend Engineer (Intern)",
+        subTitle: "Write the MVP & UI library using svelte & SCSS.",
+        corp: "Hong Kong Aukemi Limited",
+      },
+    },
+  ];
+
+  const timelineItems: TimelineItem[] = timelineData.map((data) => ({
+    time: data.time,
+    content: {
+      heading: (className: string) => (
+        <h4 className={className}>{data.content.heading}</h4>
+      ),
+      subTitle: data.content.subTitle,
+      nameArea: <p className="text-sm font-urbanist font-semibold">{data.content.corp}</p>,
+    },
+    timeLabel: <Timeline.TimeLabel time={data.time}></Timeline.TimeLabel>,
+  }));
+
+  return <Timeline items={timelineItems}></Timeline>;
 }
