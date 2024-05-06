@@ -14,11 +14,16 @@ export function Timeline(props: {
   return (
     <div>
       {props.items.map((item) => (
-        <div key={item.time} className="flex gap-x-3 items-start">
-          <div className="flex items-center">
-            {item.timeLabel}
-            <Icon className="ml-3"></Icon>
-            {item.content.heading("text-lg invisible truncate w-0")}
+        <div key={item.time} className="flex gap-x-3">
+          <div className="flex flex-col items-end">
+            <div className="flex items-center">
+              {item.timeLabel}
+              <Icon className="ml-3"></Icon>
+              {item.content.heading("text-lg invisible truncate w-0")}
+            </div>
+            <div className="flex-1 w-2">
+              <div className="w-[0.6px] h-full mx-auto box-border bg-slate-300"></div>
+            </div>
           </div>
           <Content
             heading={item.content.heading("text-lg")}
@@ -57,7 +62,7 @@ export namespace Timeline {
   }
 }
 
-function Icon({className}: BaseProps) {
+function Icon({ className }: BaseProps) {
   return <div className={`size-2 rounded-full bg-blue-600 ${className}`}></div>;
 }
 

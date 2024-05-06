@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export function PrelineInit({children}: ChildrenProps) {
+export function PrelineInit({ children }: ChildrenProps) {
   const path = usePathname();
   const [_nonce, setNonce] = useState(0);
 
